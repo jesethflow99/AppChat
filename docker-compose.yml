@@ -1,0 +1,17 @@
+services:
+  relay:
+    build: ./server
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  app:
+    build: ./app-chat
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./app-chat:/app
+      - /app/node_modules
+    depends_on:
+      - relay
+    restart: unless-stopped
